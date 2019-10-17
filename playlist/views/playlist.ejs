@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html> 
+  
+<body> 
+  <div align="center">
+    <h1 id="song_name"></h1>
+    <audio id="player" autoplay preload="auto" controls style="width:100%;"> </audio> 
+    <button onclick="prev()">Previous</button>
+<button onclick="next()">Next</button>
+<br>
+<button onclick="song_repeat()">song repeat</button>
+<br>
+</div>
+    <% for(var i=0;i<length;i++)  {%>
+      <button id="<%=i%>" onclick="play_song(this.id)"><%=playlistfiles[i]%></button>
+    <br>
+  <%}%>
+
+
+    <script>
+        var i=0;
+        var song_repeat_chk=0;
+        var playlistlength=<%=length%>;
+        var music=document.getElementById('player');
+        music.setAttribute("src","http://localhost:3000/song/"+i);
+  
+        document.getElementById("song_name").innerHTML=document.getElementById(i).innerHTML;
+        function prev()
+        {
+            i--;
+            if(i<0)
+         {
+           i=playlistlength-1;
+         }
+         document.getElementById("song_name").innerHTML=document.getElementById(i).innerHTML;
+         music.setAttribute("src","http://localhost:3000/song/"+i);
+        }
+        function next()
+        {
+          i++;
+        if(i>=playlistlength)
+         i=0;
+         document.getElementById("song_name").innerHTML=document.getElementById(i).innerHTML;
+        music.setAttribute("src","http://localhost:3000/song/"+i);
+        }
+        function song_repeat()
+        {
+          song_repeat_chk=!song_repeat_chk;
+        }
+        function play_song(b_id)
+        {
+          i=b_id;
+          if(i>=playlistlength)
+         i=0;
+         if(i<0)
+         {
+           i=playlistlength-1;
+         }
+         document.getElementById("song_name").innerHTML=document.getElementById(i).innerHTML;
+          music.setAttribute("src","http://localhost:3000/song/"+i);
+        }
+        music.addEventListener('ended',function(){
+          if(song_repeat_chk==0)
+          {
+        i++;
+        if(i>=playlistlength)
+         i=0;
+          }
+          document.getElementById("song_name").innerHTML=document.getElementById(i).innerHTML;
+          music.setAttribute("src","http://localhost:3000/song/"+i);
+      });
+    </script>
+</body> 
+  
+</html>

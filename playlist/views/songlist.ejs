@@ -1,0 +1,18 @@
+<html>
+    <head>
+<title>Songs</title>
+</head>
+<script type="text/javascript">
+
+</script>
+    <body>
+<form  action="/songlist" method="post">
+        <ul style="list-style: none;">
+    <% for(var i=0;i<arr.length;i++)  {%>
+        <li><input type="checkbox" name="songlist[]" value="<%=i%>" ><%=arr[i]%></li>
+    <%}%>
+    </ul>
+	<button type="submit">Add to playlist</button>
+</form>
+    </body>
+    </html>
